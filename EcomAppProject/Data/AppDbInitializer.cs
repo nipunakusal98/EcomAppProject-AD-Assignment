@@ -273,52 +273,173 @@ namespace EcomAppProject.Data
 
                 }
 
-                ////Model
-                //if (!context.Models.Any())
-                //{
-                //    context.Models.AddRange(new List<Model>() {
-                //        new Model() 
-                //        {
-                //            ModelName="Home Premium 2000",
-                //            ModelPictureURL="",
+                //Model
+                if (!context.Models.Any())
+                {
+                    context.Models.AddRange(new List<Model>() {
+                        new Model()
+                        {
+                            SeriesID=1,
+                            ModelName="Home Premium 2000",
+                            ModelPictureURL="",
+                            DefaultVGA="",
+                            DefaultRAM="",
+                            DefaultProcessor="",
+                            DefaultAntivirus="",
+                            DefaultOS="",
+                            DefaultModelPrice=100
+
+                        },
+                         new Model()
+                        {
+                            SeriesID=2,
+                            ModelName="Home Premium 2000",
+                            ModelPictureURL="",
+                            DefaultVGA="",
+                            DefaultRAM="",
+                            DefaultProcessor="",
+                            DefaultAntivirus="",
+                            DefaultOS="",
+                            DefaultModelPrice=100
+
+                        },
+                          new Model()
+                        {
+                            SeriesID=3,
+                            ModelName="Home Premium 2000",
+                            ModelPictureURL="",
+                            DefaultVGA="",
+                            DefaultRAM="",
+                            DefaultProcessor="",
+                            DefaultAntivirus="",
+                            DefaultOS="",
+                            DefaultModelPrice=100
+
+                        },
+                           new Model()
+                        {
+                            SeriesID=4,
+                            ModelName="Home Premium 2000",
+                            ModelPictureURL="",
+                            DefaultVGA="",
+                            DefaultRAM="",
+                            DefaultProcessor="",
+                            DefaultAntivirus="",
+                            DefaultOS="",
+                            DefaultModelPrice=100
+
+                        },
+                            new Model()
+                        {
+                            SeriesID=5,
+                            ModelName="Home Premium 2000",
+                            ModelPictureURL="",
+                            DefaultVGA="",
+                            DefaultRAM="",
+                            DefaultProcessor="",
+                            DefaultAntivirus="",
+                            DefaultOS="",
+                            DefaultModelPrice=100
+
+                        },
+                             new Model()
+                        {
+                            SeriesID=2,
+                            ModelName="Home Premium 2000",
+                            ModelPictureURL="",
+                            DefaultVGA="",
+                            DefaultRAM="",
+                            DefaultProcessor="",
+                            DefaultAntivirus="",
+                            DefaultOS="",
+                            DefaultModelPrice=100
+
+                        }
+                    });
+
+
+                    context.SaveChanges();
+
+                }
+
+                //CustomerConfiguration
+                if (!context.CustomerConfigurations.Any())
+                {
+                    context.CustomerConfigurations.AddRange(new List<CustomerConfiguration>() {
+                        new CustomerConfiguration() 
+                        {
+                            CustomerID=1,
+                            ModelID=1,
+                            MemoryID=1,
+                            ProcessorID=1,
+                            VGAID=1,
+                            AntivirusID=1,
+                            ConfigurationPrice=1235
                             
-                //        }
-                //    });
-                //    //Code Goes Here
 
-                //    context.SaveChanges();
 
-                //}
+                        },
+                        new CustomerConfiguration()
+                        {
+                            CustomerID=1,
+                            ModelID=1,
+                            MemoryID=2,
+                            ProcessorID=2,
+                            VGAID=2,
+                            AntivirusID=1,
+                            ConfigurationPrice=123545
 
-                ////CustomerConfiguration
-                //if (!context.CustomerConfigurations.Any())
-                //{
-                //    context.CustomerConfigurations.AddRange(new List<CustomerConfiguration>() { });
-                //    //Code Goes Here
 
-                //    context.SaveChanges();
 
-                //}
+                        },
+                    });
+                    //Code Goes Here
 
-                ////CustomerConfiguredModelOrder
-                //if (!context.CustomerConfiguredModelOrders.Any())
-                //{
-                //    context.CustomerConfiguredModelOrders.AddRange(new List<CustomerConfiguredModelOrder>() { });
-                //    //Code Goes Here
+                    context.SaveChanges();
 
-                //    context.SaveChanges();
+                }
 
-                //}
+                //CustomerConfiguredModelOrder
+                if (!context.CustomerConfiguredModelOrders.Any())
+                {
+                    context.CustomerConfiguredModelOrders.AddRange(new List<CustomerConfiguredModelOrder>() { 
+                     new CustomerConfiguredModelOrder() 
+                     {
+                         CustomerConfigID=1,
+                         ShippingAddress="addr1",
+                         BillingAddress="addr2",
+                         ShippingMethod=ShippingMethod.Express_shipping,
+                         OrderDate=DateTime.Now,
+                         ConfigurationPrice=100,
+                         OrderStatus="Active",
+                       
 
-                ////CustomerConfiguredModelPayment
-                //if (!context.CustomerConfiguredModelPayments.Any())
-                //{
-                //    context.CustomerConfiguredModelPayments.AddRange(new List<CustomerConfiguredModelPayment>() { });
-                //    //Code Goes Here
+                     }
+                    });
+                    //Code Goes Here
 
-                //    context.SaveChanges();
+                    context.SaveChanges();
 
-                //}
+                }
+
+                //CustomerConfiguredModelPayment
+                if (!context.CustomerConfiguredModelPayments.Any())
+                {
+                    context.CustomerConfiguredModelPayments.AddRange(new List<CustomerConfiguredModelPayment>() {
+                    new CustomerConfiguredModelPayment()
+                    {
+                        CustomerConfiguredModelOrderID=1,
+                        Amount=45641,
+                        PaymentDate=DateTime.Now,
+                        PaymentMethod=PaymentMethod.Online_Payment,
+
+                    }
+                    });
+                    //Code Goes Here
+
+                    context.SaveChanges();
+
+                }
 
                 ////Order
                 //if (!context.Orders.Any())

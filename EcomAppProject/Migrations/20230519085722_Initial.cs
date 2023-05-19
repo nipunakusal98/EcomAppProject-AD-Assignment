@@ -49,8 +49,7 @@ namespace EcomAppProject.Migrations
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ShippingAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    BillingAddress = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -301,6 +300,28 @@ namespace EcomAppProject.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "CustomerConfiguredModelPayments",
+                columns: table => new
+                {
+                    CustomerConfiguredModelPaymentID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Amount = table.Column<int>(type: "int", nullable: false),
+                    PaymentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PaymentMethod = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CustomerConfiguredModelOrderID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CustomerConfiguredModelPayments", x => x.CustomerConfiguredModelPaymentID);
+                    table.ForeignKey(
+                        name: "FK_CustomerConfiguredModelPayments_CustomerConfiguredModelOrders_CustomerConfiguredModelOrderID",
+                        column: x => x.CustomerConfiguredModelOrderID,
+                        principalTable: "CustomerConfiguredModelOrders",
+                        principalColumn: "CustomerConfiguredModelOrderID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_CustomerConfigurations_AntivirusID",
                 table: "CustomerConfigurations",
@@ -337,6 +358,11 @@ namespace EcomAppProject.Migrations
                 column: "CustomerConfigID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_CustomerConfiguredModelPayments_CustomerConfiguredModelOrderID",
+                table: "CustomerConfiguredModelPayments",
+                column: "CustomerConfiguredModelOrderID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Models_SeriesID",
                 table: "Models",
                 column: "SeriesID");
@@ -366,7 +392,7 @@ namespace EcomAppProject.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "CustomerConfiguredModelOrders");
+                name: "CustomerConfiguredModelPayments");
 
             migrationBuilder.DropTable(
                 name: "Employees");
@@ -375,28 +401,31 @@ namespace EcomAppProject.Migrations
                 name: "Payments");
 
             migrationBuilder.DropTable(
-                name: "CustomerConfigurations");
+                name: "CustomerConfiguredModelOrders");
 
             migrationBuilder.DropTable(
                 name: "Orders");
 
             migrationBuilder.DropTable(
+                name: "CustomerConfigurations");
+
+            migrationBuilder.DropTable(
                 name: "AntivirusSoftwares");
 
             migrationBuilder.DropTable(
+                name: "Customers");
+
+            migrationBuilder.DropTable(
                 name: "Memories");
+
+            migrationBuilder.DropTable(
+                name: "Models");
 
             migrationBuilder.DropTable(
                 name: "Processors");
 
             migrationBuilder.DropTable(
                 name: "VGAs");
-
-            migrationBuilder.DropTable(
-                name: "Customers");
-
-            migrationBuilder.DropTable(
-                name: "Models");
 
             migrationBuilder.DropTable(
                 name: "Series");

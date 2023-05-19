@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EcomAppProject.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230519055959_Initial")]
-    partial class Initial
+    [Migration("20230519091636_thirdMigration")]
+    partial class thirdMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -74,10 +74,6 @@ namespace EcomAppProject.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CustomerID"));
 
-                    b.Property<string>("BillingAddress")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -94,7 +90,7 @@ namespace EcomAppProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ShippingAddress")
+                    b.Property<string>("Phone")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -189,6 +185,34 @@ namespace EcomAppProject.Migrations
                     b.HasIndex("CustomerConfigID");
 
                     b.ToTable("CustomerConfiguredModelOrders");
+                });
+
+            modelBuilder.Entity("EcomAppProject.Models.CustomerConfiguredModelPayment", b =>
+                {
+                    b.Property<int>("CustomerConfiguredModelPaymentID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CustomerConfiguredModelPaymentID"));
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CustomerConfiguredModelOrderID")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("PaymentDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PaymentMethod")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CustomerConfiguredModelPaymentID");
+
+                    b.HasIndex("CustomerConfiguredModelOrderID");
+
+                    b.ToTable("CustomerConfiguredModelPayments");
                 });
 
             modelBuilder.Entity("EcomAppProject.Models.Employee", b =>
@@ -500,6 +524,17 @@ namespace EcomAppProject.Migrations
                     b.Navigation("CustomerConfiguration");
                 });
 
+            modelBuilder.Entity("EcomAppProject.Models.CustomerConfiguredModelPayment", b =>
+                {
+                    b.HasOne("EcomAppProject.Models.CustomerConfiguredModelOrder", "CustomerConfiguredModelOrder")
+                        .WithMany("CustomerConfiguredModelPayment")
+                        .HasForeignKey("CustomerConfiguredModelOrderID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CustomerConfiguredModelOrder");
+                });
+
             modelBuilder.Entity("EcomAppProject.Models.Model", b =>
                 {
                     b.HasOne("EcomAppProject.Models.Series", "Series")
@@ -567,6 +602,11 @@ namespace EcomAppProject.Migrations
                     b.Navigation("CustomerConfigurations");
 
                     b.Navigation("Orders");
+                });
+
+            modelBuilder.Entity("EcomAppProject.Models.CustomerConfiguredModelOrder", b =>
+                {
+                    b.Navigation("CustomerConfiguredModelPayment");
                 });
 
             modelBuilder.Entity("EcomAppProject.Models.Memory", b =>

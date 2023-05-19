@@ -16,7 +16,7 @@ namespace EcomAppProject.Models
         public int ProcessorID { get; set; }
         [ForeignKey("ProcessorID")]
         public int MemoryID { get; set; }
-        [ForeignKey("ProcessorID")]
+        [ForeignKey("MemoryID")]
         public int VGAID { get; set; }
         [ForeignKey("MemoryID")]
         public int AntivirusID { get; set; }

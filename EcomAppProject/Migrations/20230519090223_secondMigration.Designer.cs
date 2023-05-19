@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EcomAppProject.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230519063207_AddCustomerPhone")]
-    partial class AddCustomerPhone
+    [Migration("20230519090223_secondMigration")]
+    partial class secondMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
