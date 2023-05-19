@@ -441,15 +441,22 @@ namespace EcomAppProject.Data
 
                 }
 
-                ////Order
-                //if (!context.Orders.Any())
-                //{
-                //    context.Orders.AddRange(new List<Order>() { });
-                //    //Code Goes Here
+                //Order
+                if (!context.Orders.Any())
+                {
+                    context.Orders.AddRange(new List<Order>() {
+                        new Order() 
+                        {
+                            CustomerID=1,
+                            ModelID=1,
 
-                //    context.SaveChanges();
+                        }
+                    });
+                    //Code Goes Here
 
-                //}
+                    context.SaveChanges();
+
+                }
 
                 ////Payment
                 //if (!context.Payments.Any())
