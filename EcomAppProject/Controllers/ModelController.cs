@@ -1,5 +1,6 @@
 ﻿using EcomApp.Data;
 using EcomAppProject.Data.Services;
+using EcomAppProject.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,17 +8,28 @@ namespace EcomAppProject.Controllers
 {
     public class ModelController : Controller
     {
-        private readonly AppDbContext _context;
+        private readonly IModelService _service;
 
-        public ModelController(AppDbContext service)
+        public ModelController(IModelService service)
         {
-            _context = service;
+            _service = service;
         }
 
         public async Task<IActionResult> Index()
         {
-            var data = await _context.Models.ToListAsync();
+            var data = await _service.GetAll();
             return View(data);
+        }
+
+        [HttpPost]
+
+        public async Task <IActionResult> Create(Model model)
+        {
+            if 
+            {
+
+            }
+
         }
     }
 }
