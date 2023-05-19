@@ -441,7 +441,7 @@ namespace EcomAppProject.Data
 
                 }
 
-                //Order
+            /*    //Order
                 if (!context.Orders.Any())
                 {
                     context.Orders.AddRange(new List<Order>() {
@@ -481,7 +481,7 @@ namespace EcomAppProject.Data
 
                 }
 
-
+                */
 
 
 
