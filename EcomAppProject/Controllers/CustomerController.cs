@@ -3,18 +3,21 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EcomAppProject.Controllers
 {
-    public class VGAController : Controller
+    public class CustomerController : Controller
     {
+
         private readonly AppDbContext _context;
 
-        public VGAController(AppDbContext context)
+        public CustomerController(AppDbContext context)
         {
             _context = context;
         }
+
         public IActionResult Index()
         {
-            var data = _context.VGAs.ToList();
+            var data = _context.Customers.ToList();
             return View(data);
         }
+
     }
 }

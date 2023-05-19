@@ -14,7 +14,7 @@ namespace EcomAppProject.Controllers
         public IActionResult Index()
         {
             var data = _context.Processors.ToList();
-            return View();
+            return View(data);
         }
     }
 }

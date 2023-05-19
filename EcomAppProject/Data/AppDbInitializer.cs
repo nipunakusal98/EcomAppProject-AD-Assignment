@@ -191,20 +191,20 @@ namespace EcomAppProject.Data
                         new Memory() 
                         {
                             MemoryDescription="8GB DDR4 RAM",
-                            MemoryPictureURL="",
+                            MemoryPictureURL="https://www.alectro.com.au/libraries/images/Blog/What-is%20a-VGA-Card.jpg",
                             MemoryPrice=100
                         },
 
                         new Memory()
                         {
                             MemoryDescription="4GB DDR4 RAM",
-                            MemoryPictureURL="",
+                            MemoryPictureURL="https://www.alectro.com.au/libraries/images/Blog/What-is%20a-VGA-Card.jpg",
                             MemoryPrice=200
                         },
                         new Memory()
                         {
                             MemoryDescription="8GB DDR3 RAM",
-                            MemoryPictureURL="",
+                            MemoryPictureURL="https://www.alectro.com.au/libraries/images/Blog/What-is%20a-VGA-Card.jpg",
                             MemoryPrice=300
                         }
                     });
@@ -221,19 +221,19 @@ namespace EcomAppProject.Data
                         new Processor() 
                         {
                             ProcessorDescription="2nd generation Intel Core i7-2860QM",
-                            ProcessorPictureURL="",
+                            ProcessorPictureURL="https://www.alectro.com.au/libraries/images/Blog/What-is%20a-VGA-Card.jpg",
                             ProcessorPrice=100  
                         },
                         new Processor()
                         {
                             ProcessorDescription="Intel Core i5-8400",
-                            ProcessorPictureURL="",
+                            ProcessorPictureURL="https://www.alectro.com.au/libraries/images/Blog/What-is%20a-VGA-Card.jpg",
                             ProcessorPrice=200
                         },
                         new Processor()
                         {
                             ProcessorDescription="AMD Ryzen 7 3700X",
-                            ProcessorPictureURL="",
+                            ProcessorPictureURL="https://www.alectro.com.au/libraries/images/Blog/What-is%20a-VGA-Card.jpg",
                             ProcessorPrice=300
                         }
 
@@ -251,19 +251,19 @@ namespace EcomAppProject.Data
                         new VGA()
                         {
                             VGADescription="NVIDIA GeForce GTX 1650 4GB GDDR5",
-                            VGAPictureURL="",
+                            VGAPictureURL="https://www.alectro.com.au/libraries/images/Blog/What-is%20a-VGA-Card.jpg",
                             VGAPrice=100
                         },
                         new VGA()
                         {
                             VGADescription="NVIDIA GeForce GTX 3452 6GB GDDR5",
-                            VGAPictureURL="",
+                            VGAPictureURL="https://www.alectro.com.au/libraries/images/Blog/What-is%20a-VGA-Card.jpg",
                             VGAPrice=200
                         },
                         new VGA()
                         {
                              VGADescription="NVIDIA GeForce GTX 3452 8GB GDDR5",
-                            VGAPictureURL="",
+                            VGAPictureURL="https://www.alectro.com.au/libraries/images/Blog/What-is%20a-VGA-Card.jpg",
                             VGAPrice=300
                         }
                     });

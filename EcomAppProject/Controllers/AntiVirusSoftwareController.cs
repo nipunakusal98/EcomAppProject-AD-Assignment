@@ -15,7 +15,7 @@ namespace EcomAppProject.Controllers
         public IActionResult Index()
         {
             var data = _context.AntivirusSoftwares.ToList();
-            return View();
+            return View(data);
         }
     }
 }
