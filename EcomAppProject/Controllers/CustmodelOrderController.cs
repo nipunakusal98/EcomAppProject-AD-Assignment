@@ -1,12 +1,22 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using EcomApp.Data;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace EcomAppProject.Controllers
 {
     public class CustmodelOrderController : Controller
     {
-        public IActionResult Index()
+        private readonly AppDbContext _context;
+
+        public CustmodelOrderController(AppDbContext context)
         {
-            return View();
+            _context = context;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var data = await _context.CustomerConfiguredModelOrders.ToListAsync();
+            return View(data);
         }
     }
 }

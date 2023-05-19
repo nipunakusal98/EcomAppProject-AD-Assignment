@@ -1,12 +1,22 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using EcomApp.Data;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
-namespace EcomAppProject.Controllers
-{
-    public class CustmodelPaymentController : Controller
-    {
-        public IActionResult Index()
-        {
-            return View();
-        }
-    }
-}
+//namespace EcomAppProject.Controllers
+//{
+//    public class CustmodelPaymentController : Controller
+//    //{
+//    //    private readonly AppDbContext _context;
+
+//    //    public CustmodelPaymentController(AppDbContext context)
+//    //    {
+//    //        _context = context;
+//    //    }
+
+//    //    public async Task<IActionResult> Index()
+//    //    {
+//    //        var data = await _context.Categories.ToListAsync();
+//    //        return View(data);
+//    //    }
+//    }
+//}

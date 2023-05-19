@@ -1,6 +1,7 @@
 ﻿using EcomApp.Data;
 using EcomAppProject.Data.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace EcomAppProject.Controllers
 {
@@ -15,7 +16,7 @@ namespace EcomAppProject.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var data = _context.Models.ToList();
+            var data = await _context.Models.ToListAsync();
             return View(data);
         }
     }
