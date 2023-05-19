@@ -15,7 +15,8 @@ namespace EcomAppProject.Data.Services
 
         public void Add(Model model)
         {
-            throw new NotImplementedException();
+            _context.Models.Add(model);
+            _context.SaveChanges();
         }
 
         public void Delete(int id)

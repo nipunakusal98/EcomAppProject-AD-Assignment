@@ -23,12 +23,16 @@ namespace EcomAppProject.Controllers
 
         [HttpPost]
 
-        public async Task <IActionResult> Create(Model model)
+        public async Task<IActionResult> Create([Bind("ModelName,ModelPictureURL,DefaultRAM" +
+            "DefaultVGA, DefaultProcessor,DefaultOS,DefaultAntivirus,DefaultModelPrice")] Model model)
         {
-            if 
+            if (ModelState.IsValid)
             {
-
+                return View(model);
             }
+
+            _service.Add(model);
+            return RedirectToAction(nameof(Index));
 
         }
     }
