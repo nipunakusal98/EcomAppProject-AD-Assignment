@@ -1,6 +1,8 @@
 using EcomApp.Data;
 using EcomAppProject.Data;
+using EcomAppProject.Data.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +12,8 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(buil
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<IModelService, ModelService>();
 
 var app = builder.Build();
 

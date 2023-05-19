@@ -1,20 +1,21 @@
 ﻿using EcomApp.Data;
+using EcomAppProject.Data.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EcomAppProject.Controllers
 {
     public class ModelController : Controller
     {
-        private readonly AppDbContext _context;
+        private readonly IModelService _service;
 
-        public ModelController(AppDbContext context)
+        public ModelController(IModelService service)
         {
-            _context = context;
+            _service = service;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var data = _context.Models.ToList();
+            var data = _service.GetAll();
             return View(data);
         }
     }
