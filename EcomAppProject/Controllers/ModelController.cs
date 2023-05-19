@@ -15,6 +15,8 @@ namespace EcomAppProject.Controllers
             _service = service;
         }
 
+
+        //Get: Models/Create
         public async Task<IActionResult> Index()
         {
             var data = await _service.GetAll();
@@ -22,7 +24,6 @@ namespace EcomAppProject.Controllers
         }
 
         [HttpPost]
-
         public async Task<IActionResult> Create([Bind("ModelName,ModelPictureURL,DefaultRAM" +
             "DefaultVGA, DefaultProcessor,DefaultOS,DefaultAntivirus,DefaultModelPrice")] Model model)
         {
