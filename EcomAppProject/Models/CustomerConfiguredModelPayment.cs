@@ -16,6 +16,8 @@ namespace EcomAppProject.Models
         public int CustomerConfiguredModelOrderID { get; set; }
         [ForeignKey("CustomerConfiguredModelOrderID")]
 
+        
+
         // Navigation properties
         public CustomerConfiguredModelOrder CustomerConfiguredModelOrder { get; set; }
     }
