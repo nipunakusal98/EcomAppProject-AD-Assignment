@@ -23,11 +23,16 @@ namespace EcomAppProject.Controllers
             return View(data);
         }
 
+        public async Task<IActionResult> Create()
+        {
+
+            return View();
+        }
         [HttpPost]
         public async Task<IActionResult> Create([Bind("ModelName,ModelPictureURL,DefaultRAM" +
             "DefaultVGA, DefaultProcessor,DefaultOS,DefaultAntivirus,DefaultModelPrice")] Model model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View(model);
             }

@@ -29,15 +29,15 @@ namespace EcomAppProject.Models
         public string DefaultProcessor { get; set; }
 
         [Display(Name = "DefaultOS")]
-        [Required(ErrorMessage = "Required ")]
+        [Required(ErrorMessage = "Required")]
         public string DefaultOS { get; set; }
 
         [Display(Name = "DefaultAntivirus")]
-        [Required(ErrorMessage = "Required ")]
+        [Required(ErrorMessage = "Required")]
         public string DefaultAntivirus { get; set; }
 
         [Display(Name = "DefaultModelPrice")]
-        [Required(ErrorMessage = "Required ")]
+        [Required(ErrorMessage = "Required")]
         public int DefaultModelPrice { get; set; }
 
         // Foreign key
