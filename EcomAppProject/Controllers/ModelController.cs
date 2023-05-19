@@ -6,16 +6,16 @@ namespace EcomAppProject.Controllers
 {
     public class ModelController : Controller
     {
-        private readonly IModelService _service;
+        private readonly AppDbContext _context;
 
-        public ModelController(IModelService service)
+        public ModelController(AppDbContext service)
         {
-            _service = service;
+            _context = service;
         }
 
         public async Task<IActionResult> Index()
         {
-            var data = _service.GetAll();
+            var data = _context.Models.ToList();
             return View(data);
         }
     }

@@ -441,32 +441,45 @@ namespace EcomAppProject.Data
 
                 }
 
-                ////Order
-                //if (!context.Orders.Any())
-                //{
-                //    context.Orders.AddRange(new List<Order>() {
-                //        new Order() 
-                //        {
-                //            CustomerID=1,
-                //            ModelID=1,
+                //Order
+                if (!context.Orders.Any())
+                {
+                    context.Orders.AddRange(new List<Order>() {
+                        new Order()
+                        {
+                            CustomerID=1,
+                            ModelID=1,
+                            ShippingAddress="Addr1",
+                            BillingAddress="addr1",
+                            ShippingMethod=ShippingMethod.Express_shipping,
+                            OrderDate=DateTime.Now,
+                            TotalAmount=54654,
+                            OrderStatus="Active"
 
-                //        }
-                //    });
-                //    //Code Goes Here
+                        }
+                    });
+                    
 
-                //    context.SaveChanges();
+                    context.SaveChanges();
 
-                //}
+                }
 
-                ////Payment
-                //if (!context.Payments.Any())
-                //{
-                //    context.Payments.AddRange(new List<Payment>() { });
-                //    //Code Goes Here
+                //Payment
+                if (!context.Payments.Any())
+                {
+                    context.Payments.AddRange(new List<Payment>() {
+                        new Payment() 
+                        {
+                            OrderID=2,
+                            Amount=54654,
+                            PaymentDate=DateTime.Now,
+                            PaymentMethod=PaymentMethod.Online_Payment,
+                        }
+                    });
 
-                //    context.SaveChanges();
+                    context.SaveChanges();
 
-                //}
+                }
 
 
 
