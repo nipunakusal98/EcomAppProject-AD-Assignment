@@ -10,90 +10,90 @@ using EcomAppProject.Models;
 
 namespace EcomAppProject.Controllers
 {
-    public class SeriesController : Controller
+    public class ModelsController : Controller
     {
         private readonly AppDbContext _context;
 
-        public SeriesController(AppDbContext context)
+        public ModelsController(AppDbContext context)
         {
             _context = context;
         }
 
-        // GET: Series
+        // GET: Models
         public async Task<IActionResult> Index()
         {
-            var appDbContext = _context.Series.Include(s => s.Category);
+            var appDbContext = _context.Models.Include(m => m.Series);
             return View(await appDbContext.ToListAsync());
         }
 
-        // GET: Series/Details/5
+        // GET: Models/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Series == null)
+            if (id == null || _context.Models == null)
             {
                 return NotFound();
             }
 
-            var series = await _context.Series
-                .Include(s => s.Category)
-                .FirstOrDefaultAsync(m => m.SeriesID == id);
-            if (series == null)
+            var model = await _context.Models
+                .Include(m => m.Series)
+                .FirstOrDefaultAsync(m => m.ModelID == id);
+            if (model == null)
             {
                 return NotFound();
             }
 
-            return View(series);
+            return View(model);
         }
 
-        // GET: Series/Create
+        // GET: Models/Create
         public IActionResult Create()
         {
-            ViewData["CategoryID"] = new SelectList(_context.Categories, "CategoryID", "CategoryID");
+            ViewData["SeriesID"] = new SelectList(_context.Series, "SeriesID", "SeriesID");
             return View();
         }
 
-        // POST: Series/Create
+        // POST: Models/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("SeriesID,SeriesName,SeriesPictureURL,CategoryID")] Series series)
+        public async Task<IActionResult> Create([Bind("ModelID,ModelName,ModelPictureURL,DefaultRAM,DefaultVGA,DefaultProcessor,DefaultOS,DefaultAntivirus,DefaultModelPrice,SeriesID")] Model model)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(series);
+                _context.Add(model);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryID"] = new SelectList(_context.Categories, "CategoryID", "CategoryID", series.CategoryID);
-            return View(series);
+            ViewData["SeriesID"] = new SelectList(_context.Series, "SeriesID", "SeriesID", model.SeriesID);
+            return View(model);
         }
 
-        // GET: Series/Edit/5
+        // GET: Models/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Series == null)
+            if (id == null || _context.Models == null)
             {
                 return NotFound();
             }
 
-            var series = await _context.Series.FindAsync(id);
-            if (series == null)
+            var model = await _context.Models.FindAsync(id);
+            if (model == null)
             {
                 return NotFound();
             }
-            ViewData["CategoryID"] = new SelectList(_context.Categories, "CategoryID", "CategoryID", series.CategoryID);
-            return View(series);
+            ViewData["SeriesID"] = new SelectList(_context.Series, "SeriesID", "SeriesID", model.SeriesID);
+            return View(model);
         }
 
-        // POST: Series/Edit/5
+        // POST: Models/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("SeriesID,SeriesName,SeriesPictureURL,CategoryID")] Series series)
+        public async Task<IActionResult> Edit(int id, [Bind("ModelID,ModelName,ModelPictureURL,DefaultRAM,DefaultVGA,DefaultProcessor,DefaultOS,DefaultAntivirus,DefaultModelPrice,SeriesID")] Model model)
         {
-            if (id != series.SeriesID)
+            if (id != model.ModelID)
             {
                 return NotFound();
             }
@@ -102,12 +102,12 @@ namespace EcomAppProject.Controllers
             {
                 try
                 {
-                    _context.Update(series);
+                    _context.Update(model);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!SeriesExists(series.SeriesID))
+                    if (!ModelExists(model.ModelID))
                     {
                         return NotFound();
                     }
@@ -118,51 +118,51 @@ namespace EcomAppProject.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryID"] = new SelectList(_context.Categories, "CategoryID", "CategoryID", series.CategoryID);
-            return View(series);
+            ViewData["SeriesID"] = new SelectList(_context.Series, "SeriesID", "SeriesID", model.SeriesID);
+            return View(model);
         }
 
-        // GET: Series/Delete/5
+        // GET: Models/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Series == null)
+            if (id == null || _context.Models == null)
             {
                 return NotFound();
             }
 
-            var series = await _context.Series
-                .Include(s => s.Category)
-                .FirstOrDefaultAsync(m => m.SeriesID == id);
-            if (series == null)
+            var model = await _context.Models
+                .Include(m => m.Series)
+                .FirstOrDefaultAsync(m => m.ModelID == id);
+            if (model == null)
             {
                 return NotFound();
             }
 
-            return View(series);
+            return View(model);
         }
 
-        // POST: Series/Delete/5
+        // POST: Models/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Series == null)
+            if (_context.Models == null)
             {
-                return Problem("Entity set 'AppDbContext.Series'  is null.");
+                return Problem("Entity set 'AppDbContext.Models'  is null.");
             }
-            var series = await _context.Series.FindAsync(id);
-            if (series != null)
+            var model = await _context.Models.FindAsync(id);
+            if (model != null)
             {
-                _context.Series.Remove(series);
+                _context.Models.Remove(model);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool SeriesExists(int id)
+        private bool ModelExists(int id)
         {
-          return (_context.Series?.Any(e => e.SeriesID == id)).GetValueOrDefault();
+          return (_context.Models?.Any(e => e.ModelID == id)).GetValueOrDefault();
         }
     }
 }

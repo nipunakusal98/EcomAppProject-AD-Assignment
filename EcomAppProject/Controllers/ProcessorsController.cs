@@ -10,90 +10,87 @@ using EcomAppProject.Models;
 
 namespace EcomAppProject.Controllers
 {
-    public class SeriesController : Controller
+    public class ProcessorsController : Controller
     {
         private readonly AppDbContext _context;
 
-        public SeriesController(AppDbContext context)
+        public ProcessorsController(AppDbContext context)
         {
             _context = context;
         }
 
-        // GET: Series
+        // GET: Processors
         public async Task<IActionResult> Index()
         {
-            var appDbContext = _context.Series.Include(s => s.Category);
-            return View(await appDbContext.ToListAsync());
+              return _context.Processors != null ? 
+                          View(await _context.Processors.ToListAsync()) :
+                          Problem("Entity set 'AppDbContext.Processors'  is null.");
         }
 
-        // GET: Series/Details/5
+        // GET: Processors/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Series == null)
+            if (id == null || _context.Processors == null)
             {
                 return NotFound();
             }
 
-            var series = await _context.Series
-                .Include(s => s.Category)
-                .FirstOrDefaultAsync(m => m.SeriesID == id);
-            if (series == null)
+            var processor = await _context.Processors
+                .FirstOrDefaultAsync(m => m.ProcessorID == id);
+            if (processor == null)
             {
                 return NotFound();
             }
 
-            return View(series);
+            return View(processor);
         }
 
-        // GET: Series/Create
+        // GET: Processors/Create
         public IActionResult Create()
         {
-            ViewData["CategoryID"] = new SelectList(_context.Categories, "CategoryID", "CategoryID");
             return View();
         }
 
-        // POST: Series/Create
+        // POST: Processors/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("SeriesID,SeriesName,SeriesPictureURL,CategoryID")] Series series)
+        public async Task<IActionResult> Create([Bind("ProcessorID,ProcessorDescription,ProcessorPictureURL,ProcessorPrice")] Processor processor)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(series);
+                _context.Add(processor);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryID"] = new SelectList(_context.Categories, "CategoryID", "CategoryID", series.CategoryID);
-            return View(series);
+            return View(processor);
         }
 
-        // GET: Series/Edit/5
+        // GET: Processors/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Series == null)
+            if (id == null || _context.Processors == null)
             {
                 return NotFound();
             }
 
-            var series = await _context.Series.FindAsync(id);
-            if (series == null)
+            var processor = await _context.Processors.FindAsync(id);
+            if (processor == null)
             {
                 return NotFound();
             }
-            ViewData["CategoryID"] = new SelectList(_context.Categories, "CategoryID", "CategoryID", series.CategoryID);
-            return View(series);
+            return View(processor);
         }
 
-        // POST: Series/Edit/5
+        // POST: Processors/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("SeriesID,SeriesName,SeriesPictureURL,CategoryID")] Series series)
+        public async Task<IActionResult> Edit(int id, [Bind("ProcessorID,ProcessorDescription,ProcessorPictureURL,ProcessorPrice")] Processor processor)
         {
-            if (id != series.SeriesID)
+            if (id != processor.ProcessorID)
             {
                 return NotFound();
             }
@@ -102,12 +99,12 @@ namespace EcomAppProject.Controllers
             {
                 try
                 {
-                    _context.Update(series);
+                    _context.Update(processor);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!SeriesExists(series.SeriesID))
+                    if (!ProcessorExists(processor.ProcessorID))
                     {
                         return NotFound();
                     }
@@ -118,51 +115,49 @@ namespace EcomAppProject.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryID"] = new SelectList(_context.Categories, "CategoryID", "CategoryID", series.CategoryID);
-            return View(series);
+            return View(processor);
         }
 
-        // GET: Series/Delete/5
+        // GET: Processors/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Series == null)
+            if (id == null || _context.Processors == null)
             {
                 return NotFound();
             }
 
-            var series = await _context.Series
-                .Include(s => s.Category)
-                .FirstOrDefaultAsync(m => m.SeriesID == id);
-            if (series == null)
+            var processor = await _context.Processors
+                .FirstOrDefaultAsync(m => m.ProcessorID == id);
+            if (processor == null)
             {
                 return NotFound();
             }
 
-            return View(series);
+            return View(processor);
         }
 
-        // POST: Series/Delete/5
+        // POST: Processors/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Series == null)
+            if (_context.Processors == null)
             {
-                return Problem("Entity set 'AppDbContext.Series'  is null.");
+                return Problem("Entity set 'AppDbContext.Processors'  is null.");
             }
-            var series = await _context.Series.FindAsync(id);
-            if (series != null)
+            var processor = await _context.Processors.FindAsync(id);
+            if (processor != null)
             {
-                _context.Series.Remove(series);
+                _context.Processors.Remove(processor);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool SeriesExists(int id)
+        private bool ProcessorExists(int id)
         {
-          return (_context.Series?.Any(e => e.SeriesID == id)).GetValueOrDefault();
+          return (_context.Processors?.Any(e => e.ProcessorID == id)).GetValueOrDefault();
         }
     }
 }

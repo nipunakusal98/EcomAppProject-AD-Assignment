@@ -1,52 +1,47 @@
-﻿@*Define Model*@
-
-@model IEnumerable<Series>
-
-@*Define ViewData*@
+﻿@model IEnumerable<EcomAppProject.Models.Series>
 
 @{
-    ViewData["Title"] = "Computer Series.";
+    ViewData["Title"] = "Index";
 }
-<h1>Customers</h1>
 
-<div class="row">
-    <div class="col-md-offset-md-2">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>@Html.DisplayNameFor(model=>model.SeriesPictureURL)</th>
-                    <th>@Html.DisplayNameFor(model=>model.SeriesName)</th>
-                    <th>@Html.DisplayNameFor(model=>model.CategoryID)</th>
-                    
+<h1>Index</h1>
 
-                    <th>Actions</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td class="align-middle">
-                            <img class="rounded-circle" src="@item.SeriesPictureURL" style="max-width: 150px" />
-                        </td>
-                        <td class="align-middle">
-                            @Html.DisplayFor(modelItem => item.SeriesName)
-                        </td>
-                        <td class="align-middle">
-                            @Html.DisplayFor(modelItem => item.CategoryID)
-                        </td>
-                        
-
-                        <td class="align-middle">
-                            <a class="btn btn-outline-primary"><i class="bi bi-pencil-square"></i>Edit</a>
-                            <a class="btn btn-outline-info"><i class="bi bi-eye"></i>Details</a>
-                            <a class="btn btn-danger"><i class="bi bi-trash"></i>Delete</a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-
-        </table>
-    </div>
-</div>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SeriesName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SeriesPictureURL)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SeriesName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SeriesPictureURL)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.CategoryID)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.SeriesID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.SeriesID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.SeriesID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

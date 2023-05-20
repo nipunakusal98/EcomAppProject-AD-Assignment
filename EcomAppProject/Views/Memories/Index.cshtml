@@ -1,0 +1,47 @@
+﻿@model IEnumerable<EcomAppProject.Models.Memory>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MemoryDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MemoryPictureURL)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MemoryPrice)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MemoryDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MemoryPictureURL)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MemoryPrice)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.MemoryID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.MemoryID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.MemoryID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

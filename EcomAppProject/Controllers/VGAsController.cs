@@ -10,90 +10,87 @@ using EcomAppProject.Models;
 
 namespace EcomAppProject.Controllers
 {
-    public class SeriesController : Controller
+    public class VGAsController : Controller
     {
         private readonly AppDbContext _context;
 
-        public SeriesController(AppDbContext context)
+        public VGAsController(AppDbContext context)
         {
             _context = context;
         }
 
-        // GET: Series
+        // GET: VGAs
         public async Task<IActionResult> Index()
         {
-            var appDbContext = _context.Series.Include(s => s.Category);
-            return View(await appDbContext.ToListAsync());
+              return _context.VGAs != null ? 
+                          View(await _context.VGAs.ToListAsync()) :
+                          Problem("Entity set 'AppDbContext.VGAs'  is null.");
         }
 
-        // GET: Series/Details/5
+        // GET: VGAs/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Series == null)
+            if (id == null || _context.VGAs == null)
             {
                 return NotFound();
             }
 
-            var series = await _context.Series
-                .Include(s => s.Category)
-                .FirstOrDefaultAsync(m => m.SeriesID == id);
-            if (series == null)
+            var vGA = await _context.VGAs
+                .FirstOrDefaultAsync(m => m.VGAID == id);
+            if (vGA == null)
             {
                 return NotFound();
             }
 
-            return View(series);
+            return View(vGA);
         }
 
-        // GET: Series/Create
+        // GET: VGAs/Create
         public IActionResult Create()
         {
-            ViewData["CategoryID"] = new SelectList(_context.Categories, "CategoryID", "CategoryID");
             return View();
         }
 
-        // POST: Series/Create
+        // POST: VGAs/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("SeriesID,SeriesName,SeriesPictureURL,CategoryID")] Series series)
+        public async Task<IActionResult> Create([Bind("VGAID,VGADescription,VGAPictureURL,VGAPrice")] VGA vGA)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(series);
+                _context.Add(vGA);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryID"] = new SelectList(_context.Categories, "CategoryID", "CategoryID", series.CategoryID);
-            return View(series);
+            return View(vGA);
         }
 
-        // GET: Series/Edit/5
+        // GET: VGAs/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Series == null)
+            if (id == null || _context.VGAs == null)
             {
                 return NotFound();
             }
 
-            var series = await _context.Series.FindAsync(id);
-            if (series == null)
+            var vGA = await _context.VGAs.FindAsync(id);
+            if (vGA == null)
             {
                 return NotFound();
             }
-            ViewData["CategoryID"] = new SelectList(_context.Categories, "CategoryID", "CategoryID", series.CategoryID);
-            return View(series);
+            return View(vGA);
         }
 
-        // POST: Series/Edit/5
+        // POST: VGAs/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("SeriesID,SeriesName,SeriesPictureURL,CategoryID")] Series series)
+        public async Task<IActionResult> Edit(int id, [Bind("VGAID,VGADescription,VGAPictureURL,VGAPrice")] VGA vGA)
         {
-            if (id != series.SeriesID)
+            if (id != vGA.VGAID)
             {
                 return NotFound();
             }
@@ -102,12 +99,12 @@ namespace EcomAppProject.Controllers
             {
                 try
                 {
-                    _context.Update(series);
+                    _context.Update(vGA);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!SeriesExists(series.SeriesID))
+                    if (!VGAExists(vGA.VGAID))
                     {
                         return NotFound();
                     }
@@ -118,51 +115,49 @@ namespace EcomAppProject.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryID"] = new SelectList(_context.Categories, "CategoryID", "CategoryID", series.CategoryID);
-            return View(series);
+            return View(vGA);
         }
 
-        // GET: Series/Delete/5
+        // GET: VGAs/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Series == null)
+            if (id == null || _context.VGAs == null)
             {
                 return NotFound();
             }
 
-            var series = await _context.Series
-                .Include(s => s.Category)
-                .FirstOrDefaultAsync(m => m.SeriesID == id);
-            if (series == null)
+            var vGA = await _context.VGAs
+                .FirstOrDefaultAsync(m => m.VGAID == id);
+            if (vGA == null)
             {
                 return NotFound();
             }
 
-            return View(series);
+            return View(vGA);
         }
 
-        // POST: Series/Delete/5
+        // POST: VGAs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Series == null)
+            if (_context.VGAs == null)
             {
-                return Problem("Entity set 'AppDbContext.Series'  is null.");
+                return Problem("Entity set 'AppDbContext.VGAs'  is null.");
             }
-            var series = await _context.Series.FindAsync(id);
-            if (series != null)
+            var vGA = await _context.VGAs.FindAsync(id);
+            if (vGA != null)
             {
-                _context.Series.Remove(series);
+                _context.VGAs.Remove(vGA);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool SeriesExists(int id)
+        private bool VGAExists(int id)
         {
-          return (_context.Series?.Any(e => e.SeriesID == id)).GetValueOrDefault();
+          return (_context.VGAs?.Any(e => e.VGAID == id)).GetValueOrDefault();
         }
     }
 }

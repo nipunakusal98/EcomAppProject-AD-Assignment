@@ -10,90 +10,87 @@ using EcomAppProject.Models;
 
 namespace EcomAppProject.Controllers
 {
-    public class SeriesController : Controller
+    public class CustomersController : Controller
     {
         private readonly AppDbContext _context;
 
-        public SeriesController(AppDbContext context)
+        public CustomersController(AppDbContext context)
         {
             _context = context;
         }
 
-        // GET: Series
+        // GET: Customers
         public async Task<IActionResult> Index()
         {
-            var appDbContext = _context.Series.Include(s => s.Category);
-            return View(await appDbContext.ToListAsync());
+              return _context.Customers != null ? 
+                          View(await _context.Customers.ToListAsync()) :
+                          Problem("Entity set 'AppDbContext.Customers'  is null.");
         }
 
-        // GET: Series/Details/5
+        // GET: Customers/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Series == null)
+            if (id == null || _context.Customers == null)
             {
                 return NotFound();
             }
 
-            var series = await _context.Series
-                .Include(s => s.Category)
-                .FirstOrDefaultAsync(m => m.SeriesID == id);
-            if (series == null)
+            var customer = await _context.Customers
+                .FirstOrDefaultAsync(m => m.CustomerID == id);
+            if (customer == null)
             {
                 return NotFound();
             }
 
-            return View(series);
+            return View(customer);
         }
 
-        // GET: Series/Create
+        // GET: Customers/Create
         public IActionResult Create()
         {
-            ViewData["CategoryID"] = new SelectList(_context.Categories, "CategoryID", "CategoryID");
             return View();
         }
 
-        // POST: Series/Create
+        // POST: Customers/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("SeriesID,SeriesName,SeriesPictureURL,CategoryID")] Series series)
+        public async Task<IActionResult> Create([Bind("CustomerID,FirstName,LastName,Email,Password,Phone")] Customer customer)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(series);
+                _context.Add(customer);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryID"] = new SelectList(_context.Categories, "CategoryID", "CategoryID", series.CategoryID);
-            return View(series);
+            return View(customer);
         }
 
-        // GET: Series/Edit/5
+        // GET: Customers/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Series == null)
+            if (id == null || _context.Customers == null)
             {
                 return NotFound();
             }
 
-            var series = await _context.Series.FindAsync(id);
-            if (series == null)
+            var customer = await _context.Customers.FindAsync(id);
+            if (customer == null)
             {
                 return NotFound();
             }
-            ViewData["CategoryID"] = new SelectList(_context.Categories, "CategoryID", "CategoryID", series.CategoryID);
-            return View(series);
+            return View(customer);
         }
 
-        // POST: Series/Edit/5
+        // POST: Customers/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("SeriesID,SeriesName,SeriesPictureURL,CategoryID")] Series series)
+        public async Task<IActionResult> Edit(int id, [Bind("CustomerID,FirstName,LastName,Email,Password,Phone")] Customer customer)
         {
-            if (id != series.SeriesID)
+            if (id != customer.CustomerID)
             {
                 return NotFound();
             }
@@ -102,12 +99,12 @@ namespace EcomAppProject.Controllers
             {
                 try
                 {
-                    _context.Update(series);
+                    _context.Update(customer);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!SeriesExists(series.SeriesID))
+                    if (!CustomerExists(customer.CustomerID))
                     {
                         return NotFound();
                     }
@@ -118,51 +115,49 @@ namespace EcomAppProject.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryID"] = new SelectList(_context.Categories, "CategoryID", "CategoryID", series.CategoryID);
-            return View(series);
+            return View(customer);
         }
 
-        // GET: Series/Delete/5
+        // GET: Customers/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Series == null)
+            if (id == null || _context.Customers == null)
             {
                 return NotFound();
             }
 
-            var series = await _context.Series
-                .Include(s => s.Category)
-                .FirstOrDefaultAsync(m => m.SeriesID == id);
-            if (series == null)
+            var customer = await _context.Customers
+                .FirstOrDefaultAsync(m => m.CustomerID == id);
+            if (customer == null)
             {
                 return NotFound();
             }
 
-            return View(series);
+            return View(customer);
         }
 
-        // POST: Series/Delete/5
+        // POST: Customers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Series == null)
+            if (_context.Customers == null)
             {
-                return Problem("Entity set 'AppDbContext.Series'  is null.");
+                return Problem("Entity set 'AppDbContext.Customers'  is null.");
             }
-            var series = await _context.Series.FindAsync(id);
-            if (series != null)
+            var customer = await _context.Customers.FindAsync(id);
+            if (customer != null)
             {
-                _context.Series.Remove(series);
+                _context.Customers.Remove(customer);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool SeriesExists(int id)
+        private bool CustomerExists(int id)
         {
-          return (_context.Series?.Any(e => e.SeriesID == id)).GetValueOrDefault();
+          return (_context.Customers?.Any(e => e.CustomerID == id)).GetValueOrDefault();
         }
     }
 }

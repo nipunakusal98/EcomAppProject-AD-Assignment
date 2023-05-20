@@ -10,90 +10,87 @@ using EcomAppProject.Models;
 
 namespace EcomAppProject.Controllers
 {
-    public class SeriesController : Controller
+    public class MemoriesController : Controller
     {
         private readonly AppDbContext _context;
 
-        public SeriesController(AppDbContext context)
+        public MemoriesController(AppDbContext context)
         {
             _context = context;
         }
 
-        // GET: Series
+        // GET: Memories
         public async Task<IActionResult> Index()
         {
-            var appDbContext = _context.Series.Include(s => s.Category);
-            return View(await appDbContext.ToListAsync());
+              return _context.Memories != null ? 
+                          View(await _context.Memories.ToListAsync()) :
+                          Problem("Entity set 'AppDbContext.Memories'  is null.");
         }
 
-        // GET: Series/Details/5
+        // GET: Memories/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Series == null)
+            if (id == null || _context.Memories == null)
             {
                 return NotFound();
             }
 
-            var series = await _context.Series
-                .Include(s => s.Category)
-                .FirstOrDefaultAsync(m => m.SeriesID == id);
-            if (series == null)
+            var memory = await _context.Memories
+                .FirstOrDefaultAsync(m => m.MemoryID == id);
+            if (memory == null)
             {
                 return NotFound();
             }
 
-            return View(series);
+            return View(memory);
         }
 
-        // GET: Series/Create
+        // GET: Memories/Create
         public IActionResult Create()
         {
-            ViewData["CategoryID"] = new SelectList(_context.Categories, "CategoryID", "CategoryID");
             return View();
         }
 
-        // POST: Series/Create
+        // POST: Memories/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("SeriesID,SeriesName,SeriesPictureURL,CategoryID")] Series series)
+        public async Task<IActionResult> Create([Bind("MemoryID,MemoryDescription,MemoryPictureURL,MemoryPrice")] Memory memory)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(series);
+                _context.Add(memory);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryID"] = new SelectList(_context.Categories, "CategoryID", "CategoryID", series.CategoryID);
-            return View(series);
+            return View(memory);
         }
 
-        // GET: Series/Edit/5
+        // GET: Memories/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Series == null)
+            if (id == null || _context.Memories == null)
             {
                 return NotFound();
             }
 
-            var series = await _context.Series.FindAsync(id);
-            if (series == null)
+            var memory = await _context.Memories.FindAsync(id);
+            if (memory == null)
             {
                 return NotFound();
             }
-            ViewData["CategoryID"] = new SelectList(_context.Categories, "CategoryID", "CategoryID", series.CategoryID);
-            return View(series);
+            return View(memory);
         }
 
-        // POST: Series/Edit/5
+        // POST: Memories/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("SeriesID,SeriesName,SeriesPictureURL,CategoryID")] Series series)
+        public async Task<IActionResult> Edit(int id, [Bind("MemoryID,MemoryDescription,MemoryPictureURL,MemoryPrice")] Memory memory)
         {
-            if (id != series.SeriesID)
+            if (id != memory.MemoryID)
             {
                 return NotFound();
             }
@@ -102,12 +99,12 @@ namespace EcomAppProject.Controllers
             {
                 try
                 {
-                    _context.Update(series);
+                    _context.Update(memory);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!SeriesExists(series.SeriesID))
+                    if (!MemoryExists(memory.MemoryID))
                     {
                         return NotFound();
                     }
@@ -118,51 +115,49 @@ namespace EcomAppProject.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryID"] = new SelectList(_context.Categories, "CategoryID", "CategoryID", series.CategoryID);
-            return View(series);
+            return View(memory);
         }
 
-        // GET: Series/Delete/5
+        // GET: Memories/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Series == null)
+            if (id == null || _context.Memories == null)
             {
                 return NotFound();
             }
 
-            var series = await _context.Series
-                .Include(s => s.Category)
-                .FirstOrDefaultAsync(m => m.SeriesID == id);
-            if (series == null)
+            var memory = await _context.Memories
+                .FirstOrDefaultAsync(m => m.MemoryID == id);
+            if (memory == null)
             {
                 return NotFound();
             }
 
-            return View(series);
+            return View(memory);
         }
 
-        // POST: Series/Delete/5
+        // POST: Memories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Series == null)
+            if (_context.Memories == null)
             {
-                return Problem("Entity set 'AppDbContext.Series'  is null.");
+                return Problem("Entity set 'AppDbContext.Memories'  is null.");
             }
-            var series = await _context.Series.FindAsync(id);
-            if (series != null)
+            var memory = await _context.Memories.FindAsync(id);
+            if (memory != null)
             {
-                _context.Series.Remove(series);
+                _context.Memories.Remove(memory);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool SeriesExists(int id)
+        private bool MemoryExists(int id)
         {
-          return (_context.Series?.Any(e => e.SeriesID == id)).GetValueOrDefault();
+          return (_context.Memories?.Any(e => e.MemoryID == id)).GetValueOrDefault();
         }
     }
 }
