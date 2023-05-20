@@ -6,6 +6,7 @@ namespace EcomAppProject.Data.Services
 {
     public class ModelService : IModelService
     {
+
         private readonly AppDbContext _context;
 
         public ModelService(AppDbContext context)
