@@ -362,7 +362,7 @@ namespace EcomAppProject.Data
 
                 }
 
-                //CustomerConfiguration
+             /*   //CustomerConfiguration
                 if (!context.CustomerConfigurations.Any())
                 {
                     context.CustomerConfigurations.AddRange(new List<CustomerConfiguration>() {
@@ -480,7 +480,7 @@ namespace EcomAppProject.Data
                     context.SaveChanges();
 
                 }
-
+             */
 
 
 
